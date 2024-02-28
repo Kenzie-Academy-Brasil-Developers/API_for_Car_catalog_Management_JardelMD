@@ -71,7 +71,7 @@ describe("Integration test: create car", () => {
       expect(response.status).toBe(400);
    });
 
-   test("Should not be able to update a car - invalid body", async () => {
+   test("Should not be able to create a car - invalid body - invalid keys", async () => {
       const car = await prisma.car.create({ data: carCreateBodyMock });
       const response = await request.patch(`${baseUrl}/${car.id}`).send(invalidCarCreateBodyMock);
 

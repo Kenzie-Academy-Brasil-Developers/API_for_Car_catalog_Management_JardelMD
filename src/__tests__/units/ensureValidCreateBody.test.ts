@@ -3,7 +3,7 @@ import { EnsureMiddleware } from "../../middlewares/ensure.middleware";
 import { invalidCreateBodyMock, validCreateBodyMock, validCreateSchemaMock } from "../__mocks__/units/ensureValidCreateBody.mock";
 const ensure = new EnsureMiddleware()
 
-describe("Unit test: Ensure Valid Body middleware", () => {
+describe("Unit test: Ensure Valid Create Body middleware", () => {
   const validBodyMiddleware = ensure.validBody(validCreateSchemaMock);
 
   let req: Partial<Request> = {};
