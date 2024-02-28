@@ -1,8 +1,27 @@
-export const carCreateBodyMock = { name: "Car name", description: "Car description", brand: "Car brand", year: 2023, km: 10000 };
+export const carCreateBodyMock = {
+    name: "Car name",
+    description: "Car description",
+    brand: "Car brand",
+    year: 2023,
+    km: 10000
+};
 
-export const carUpdateBodyMock = { name: "Car name updated", description: "Car description updated", brand: "Car brand updated", year: 2022, km: 20000 };
+export const carUpdateBodyMock = {
+    name: "Car name updated",
+    description: "Car description updated",
+    brand: "Car brand updated",
+    year: 2022,
+    km: 20000
+};
 
-export const carMock = { id: "fe111d24-1b79-44df-931b-4c9fd5859014", name: "Car name", description: "Car description", brand: "Car brand", year: 2023, km: 10000 };
+export const carMock = {
+    id: "fe111d24-1b79-44df-931b-4c9fd5859014",
+    name: "Car name",
+    description: "Car description",
+    brand: "Car brand",
+    year: 2023,
+    km: 10000
+};
 
 export const carCreateBodyListMock = [
     { name: "Car name", description: "Car description", brand: "Car brand", year: 2023, km: 10000 },
@@ -15,3 +34,6 @@ export const carListMock = [
 ]
 
 export const invalidCarId = "762eff5f-9abd-44b4-9cb7-94e53eeb6bcd";
+
+
+
