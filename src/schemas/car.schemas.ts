@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const carSchema = z.object({
-    id: z.string().min(1),
+    id: z.string(),
     name: z.string().min(1),
-    description: z.string().min(1).optional(),
+    description: z.string().min(1).nullable(),
     brand: z.string().min(1),
     year: z.number().positive(),
     km: z.number().positive()

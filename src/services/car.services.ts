@@ -1,12 +1,11 @@
 import { prisma } from "../database/prisma";
-import { TCar, TCarCreateBody, TCarUpdateBody } from "../schemas/car.schemas";
-
+import { TCar, TCarCreateBody, TCarUpdateBody, carSchema } from "../schemas/car.schemas";
 
 export class CarServices {
     public async create(body: TCarCreateBody): Promise<TCar> {
-        const newCar = prisma.car.create({ data: body });
+        const newCar = await prisma.car.create({ data: body });
 
-        return newCar;
+        return carSchema.parse(newCar) ;
     }
 
     public async getMany(): Promise<TCar[]> {

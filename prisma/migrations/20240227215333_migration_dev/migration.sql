@@ -2,7 +2,7 @@
 CREATE TABLE "Car" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
+    "description" TEXT NOT NULL,
     "brand" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
     "km" INTEGER NOT NULL,
