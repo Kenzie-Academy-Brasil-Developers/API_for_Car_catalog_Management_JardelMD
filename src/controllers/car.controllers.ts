@@ -6,7 +6,9 @@ export class CarControllers {
     public async create(req: Request, res: Response): Promise<Response<TCar>> {
         const carServices = new CarServices();
 
-        const response = await carServices.create(req.body);
+        const userId = res.locals.decode.id;
+
+        const response = await carServices.create(req.body, userId);
 
         return res.status(201).json(response);
     };
@@ -14,17 +16,21 @@ export class CarControllers {
     public async getMany(req: Request, res: Response): Promise<Response<TCar[]>> {
         const carServices = new CarServices();
 
-        const response = await carServices.getMany();
+        const userId = req.query.userId as string;
+
+        const response = await carServices.getMany(userId);
 
         return res.status(200).json(response);
     };
 
     public async getOne(req: Request, res: Response): Promise<Response<TCar[]>> {
-        const id = req.params.id;
+        const id = req.params.id
+
+        const userId = req.query.userId as string;
 
         const carServices = new CarServices();
 
-        const response = await carServices.getOne(id);
+        const response = await carServices.getOne(id, userId);
 
         return res.status(200).json(response);
     };
@@ -32,9 +38,11 @@ export class CarControllers {
     public async update(req: Request, res: Response): Promise<Response<TCar>> {
         const id = req.params.id;
 
+        const userId = res.locals.decode.id;
+
         const carServices = new CarServices();
 
-        const response = await carServices.update(req.body, id);
+        const response = await carServices.update(req.body, id, userId);
 
         return res.status(200).json(response);
     };
@@ -42,9 +50,11 @@ export class CarControllers {
     public async delete(req: Request, res: Response): Promise<Response<void>> {
         const id = req.params.id;
 
+        const userId = res.locals.decode.id;
+
         const carServices = new CarServices();
 
-        const response = await carServices.delete(id);
+        const response = await carServices.delete(id, userId);
 
         return res.status(204).json(response);
     };

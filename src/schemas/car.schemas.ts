@@ -6,7 +6,8 @@ export const carSchema = z.object({
     description: z.string().min(1).nullable(),
     brand: z.string().min(1),
     year: z.number().positive(),
-    km: z.number().positive()
+    km: z.number().positive(),
+    userId: z.string().min(1).optional().nullable()
 });
 
 export const carCreateSchema = carSchema.omit({ id: true });
@@ -23,4 +24,5 @@ export type TCarUpdateBody = {
     brand?: string;
     year?: number;
     km?: number;
+    userId?: string
 };
