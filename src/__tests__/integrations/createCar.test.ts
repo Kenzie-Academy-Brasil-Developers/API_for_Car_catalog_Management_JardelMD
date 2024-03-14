@@ -1,31 +1,47 @@
 import { prisma } from "../../database/prisma";
 import { carCreateBodyMock } from "../__mocks__/car.mocks";
 import { invalidCarCreateBodyMock } from "../__mocks__/integrations/ensureValidCreateBody.mock";
+import { completeCarMockInt } from "../__mocks__/integrations/integrations.mocks";
+import { loginUserMock } from "../__mocks__/user.mocks";
+import { carDefaultExpects } from "../utils/carDefaultExpects";
 import { request } from "../utils/request";
 
 describe("Integration test: create car", () => {
    const baseUrl = "/cars";
    beforeEach(async () => {
+      await prisma.$transaction([prisma.user.deleteMany()]);
+   });
+   beforeEach(async () => {
       await prisma.$transaction([prisma.car.deleteMany()]);
    });
 
    test("should be able to create a car successfully", async () => {
+      const { token } = await loginUserMock();
+
       const data = await request
-         .post("/cars")
-         .send(carCreateBodyMock)
+         .post(`${baseUrl}`)
+         .send(completeCarMockInt)
+         .set("Authorization", token)
          .expect(201)
          .then((response) => response.body);
 
-      expect(data.id).toBeDefined();
-      expect(data.name).toBe(carCreateBodyMock.name);
-      expect(data.description).toBe(carCreateBodyMock.description);
-      expect(data.brand).toBe(carCreateBodyMock.brand);
-      expect(data.year).toBe(carCreateBodyMock.year);
-      expect(data.km).toBe(carCreateBodyMock.km);
+      const expectedCar = {
+         id: data.id,
+         name: data.name,
+         description: data.description,
+         brand: data.brand,
+         year: data.year,
+         km: data.km,
+         userId: data.userId
+      };
+
+      expect(token).toBeDefined();
+      carDefaultExpects(data, expectedCar)
    });
 
    test("Should not be able to create a car - invalid body", async () => {
-      const response = await request.post(baseUrl).send({});
+      const { token } = await loginUserMock();
+      const response = await request.post(baseUrl).send({}).set("Authorization", token);
 
       const expectedValue = {
          issues: [
@@ -72,8 +88,9 @@ describe("Integration test: create car", () => {
    });
 
    test("Should not be able to create a car - invalid body - invalid keys", async () => {
+      const { token } = await loginUserMock();
       const car = await prisma.car.create({ data: carCreateBodyMock });
-      const response = await request.patch(`${baseUrl}/${car.id}`).send(invalidCarCreateBodyMock);
+      const response = await request.patch(`${baseUrl}/${car.id}`).send(invalidCarCreateBodyMock).set("Authorization", token);
 
       const expectedValue = {
          issues: [

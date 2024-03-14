@@ -4,7 +4,6 @@ import { IsCarIdValid } from "../middlewares/isCarIdValid.middleware";
 import { ValidateBody } from "../middlewares/validateBody.middleware";
 import { carCreateSchema, carUpdateSchema } from "../schemas/car.schemas";
 import { VerifyToken } from "../middlewares/verifyToken.middleware";
-import { userRouter } from "./user.routes";
 
 export const carRouter = Router();
 

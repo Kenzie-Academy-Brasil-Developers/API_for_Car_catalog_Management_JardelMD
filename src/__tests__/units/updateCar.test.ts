@@ -1,6 +1,6 @@
 import { CarServices } from "../../services/car.services";
 import { prismaMock } from "../__mocks__/prisma";
-import { carMock, carUpdateBodyMock } from "../__mocks__/car.mocks";
+import { carMock, carUpdateBodyMock, userId } from "../__mocks__/car.mocks";
 
 
 describe("Unit test: update car", () => {
@@ -10,8 +10,8 @@ describe("Unit test: update car", () => {
         const newcarExpect = { ...carMock, ...carUpdateBodyMock };
 
         prismaMock.car.update.mockResolvedValue(newcarExpect);
-        const data = await carServices.update(carUpdateBodyMock, carMock.id);
+        const update = async () =>  await carServices.update(carUpdateBodyMock, carMock.id, userId);
 
-        expect(data).toStrictEqual(newcarExpect);
+        expect(update()).rejects.toThrow("User must be the car owner");
     });
-}); 
+});

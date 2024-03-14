@@ -1,5 +1,5 @@
 import { CarServices } from "../../services/car.services";
-import { carCreateBodyMock, carMock } from "../__mocks__/car.mocks";
+import { carCreateBodyMock, carMock, userId } from "../__mocks__/car.mocks";
 import { prismaMock } from "../__mocks__/prisma";
 
 describe("Unit test: create car", () => {
@@ -7,7 +7,7 @@ describe("Unit test: create car", () => {
         const carServices = new CarServices();
 
         prismaMock.car.create.mockResolvedValue(carMock);
-        const data = await carServices.create(carCreateBodyMock);
+        const data = await carServices.create(carCreateBodyMock, userId);
 
         expect(data).toStrictEqual(carMock);
     });

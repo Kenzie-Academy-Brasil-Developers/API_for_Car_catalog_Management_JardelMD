@@ -1,4 +1,3 @@
-import { AnyZodObject } from "zod";
 import { prisma } from "../database/prisma";
 import { TCar, TCarCreateBody, TCarUpdateBody, carSchema } from "../schemas/car.schemas";
 import { AppError } from "../errors/appErros";
